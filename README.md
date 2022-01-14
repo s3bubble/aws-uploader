@@ -1,11 +1,11 @@
 # AWS Directory Upload
 
 ```
-npm install @samueleastdev/aws-directory-upload
+npm install @s3bubble/aws-directory-upload
 ```
 
 ```js
-const awsDirectoryUpload = require("@samueleastdev/aws-directory-upload");
+const awsDirectoryUpload = require("@s3bubble/aws-directory-upload");
 
 let uploader = new awsDirectoryUpload({
     localFolderPath: "/Users/dave/Desktop/folder", // Required - The path to the folder you want to upload
