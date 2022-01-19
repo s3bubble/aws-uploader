@@ -276,6 +276,7 @@ class awsDirectoryUpload extends EventEmitter {
     uploadChunks() {
 
         const self = this;
+        let s3Keys = [];
 
         return new Promise((resolve, reject) => {
 
@@ -321,8 +322,15 @@ class awsDirectoryUpload extends EventEmitter {
                                 totalProgress: (self.chunkedIndex / self.chunkedLength) * 100,
                                 chunkedIndex: self.chunkedIndex,
                                 chunkedLength: self.chunkedLength,
+                                bucket: command.Bucket,
+                                key: command.Key,
                                 file: command.Path
                             };
+
+                            s3Keys.push({
+                                bucket: command.Bucket,
+                                key: command.Key
+                            });
 
                             if (self.showStats) {
                                 info.stats = fs.statSync(command.Path);
@@ -353,6 +361,8 @@ class awsDirectoryUpload extends EventEmitter {
                                             chunkedLength: self.chunkedLength,
                                             filesUploaded: self.filesFound
                                         });
+
+                                        self.emit("s3Data", s3Keys);
 
                                         self.emit("files", files.map((file) => file.input));
 
